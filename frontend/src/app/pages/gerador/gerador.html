@@ -1,0 +1,64 @@
+<div class="page">
+  <header class="page-header">
+    <h1>Gerar Documento</h1>
+  </header>
+
+  <p class="intro">Escolha a pessoa e o modelo. Ao gerar, um card aparecerá com opção de download.</p>
+
+  <form [formGroup]="form" class="form-gerador">
+    <div class="dropdowns">
+      <mat-form-field appearance="outline">
+        <mat-label>Selecione a Pessoa</mat-label>
+        <mat-select formControlName="pessoaId" placeholder="Escolha uma pessoa">
+          <mat-option [value]="null" disabled>— Selecione —</mat-option>
+          @for (p of pessoas(); track p.id) {
+            <mat-option [value]="p.id">{{ p.nome }} – {{ p.cpf }}</mat-option>
+          }
+          @if (loadingPessoas()) {
+            <mat-option disabled>Carregando…</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Selecione o Modelo</mat-label>
+        <mat-select formControlName="modeloId" placeholder="Escolha um modelo">
+          <mat-option [value]="null" disabled>— Selecione —</mat-option>
+          @for (m of modelos(); track m.id) {
+            <mat-option [value]="m.id">{{ m.nome }}</mat-option>
+          }
+          @if (loadingModelos()) {
+            <mat-option disabled>Carregando…</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button
+      type="button"
+      class="btn-gerar"
+      mat-raised-button
+      color="primary"
+      [disabled]="!podeGerar"
+      (click)="gerar()"
+    >
+      {{ gerando() ? 'Gerando…' : 'Gerar Documento' }}
+    </button>
+  </form>
+
+  @if (documentoGeradoAgora(); as doc) {
+    <mat-card class="card-gerado">
+      <mat-card-header>
+        <mat-card-title>Documento gerado</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>{{ doc.nome_pessoa }}</strong> – {{ doc.nome_modelo }}</p>
+        <p class="data-geracao">{{ doc.data_geracao | date:'dd/MM/yyyy HH:mm' }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="baixarDocumentoGerado(doc)">
+          <mat-icon>download</mat-icon>
+          Baixar .docx
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

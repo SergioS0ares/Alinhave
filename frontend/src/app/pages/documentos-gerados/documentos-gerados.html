@@ -1,0 +1,61 @@
+<div class="page">
+  <header class="page-header">
+    <h1>Documentos gerados</h1>
+  </header>
+  <p class="intro">Histórico dos documentos que você gerou. Visualize na web ou baixe em .docx / .html.</p>
+
+  @if (loading()) {
+    <p>Carregando…</p>
+  } @else if (documentos().length === 0) {
+    <p class="empty">Nenhum documento gerado ainda. Use a tela "Gerar Documento" para criar.</p>
+  } @else {
+    <div class="lista-docs">
+      @for (d of documentos(); track d.id) {
+        <mat-card class="doc-card">
+          <mat-card-header>
+            <mat-card-title>{{ d.nome_pessoa }} – {{ d.nome_modelo }}</mat-card-title>
+            <span class="badge-tipo">{{ extensao(d) }}</span>
+            <div class="card-actions">
+              <button mat-stroked-button (click)="visualizar(d)" title="Visualizar">
+                <mat-icon>visibility</mat-icon>
+                Visualizar
+              </button>
+              <button mat-stroked-button (click)="download(d)" title="Baixar">
+                <mat-icon>download</mat-icon>
+                Baixar {{ extensao(d) }}
+              </button>
+              <button mat-icon-button class="btn-delete" (click)="excluir(d)" title="Excluir">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <small>{{ d.data_geracao | date:'dd/MM/yyyy HH:mm' }}</small>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
+
+  @if (visualizandoId()) {
+    <div class="modal-overlay" (click)="fecharVisualizacao()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Visualização do documento</h2>
+          <button mat-icon-button (click)="fecharVisualizacao()" aria-label="Fechar">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        <div class="modal-body">
+          @if (carregandoPreview()) {
+            <p class="preview-loading">Carregando…</p>
+          } @else if (visualizandoTipo() === 'docx') {
+            <div id="docx-preview-container" class="docx-preview-wrapper"></div>
+          } @else {
+            <div class="html-preview" [innerHTML]="htmlVisualizacao() ?? ''"></div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

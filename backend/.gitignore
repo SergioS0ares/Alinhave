@@ -1,0 +1,11 @@
+# Ambiente virtual
+venv/
+node_modules/
+# Senha e segredos (nunca versionar)
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/

@@ -1,0 +1,174 @@
+<div class="page">
+  @if (modoEditor()) {
+    <div class="editor-layout">
+      <aside class="sidebar-variaveis">
+        <h4>Variáveis do Alinhave</h4>
+        <p class="sidebar-hint">Clique para inserir no documento:</p>
+        <div class="variaveis-list">
+          @for (v of variaveis(); track v.chave) {
+            <button
+              type="button"
+              mat-stroked-button
+              class="btn-variavel"
+              (click)="inserirVariavel('{{ ' + v.chave + ' }}')"
+            >
+              + {{ v.label }}
+            </button>
+          }
+        </div>
+        <hr class="sidebar-hr" />
+        <mat-form-field appearance="outline" class="nome-field">
+          <mat-label>Nome do modelo</mat-label>
+          <input matInput [ngModel]="nomeModelo()" (ngModelChange)="nomeModelo.set($event)" [readonly]="!!editandoId()" />
+        </mat-form-field>
+        @if (uploading()) {
+          <span class="uploading-label">Convertendo…</span>
+        }
+        @if (error()) {
+          <p class="error-inline">{{ error() }}</p>
+        }
+        <div class="editor-actions">
+          <button type="button" mat-button (click)="voltarLista()">Cancelar</button>
+          <button type="button" mat-raised-button color="primary" [disabled]="salvando()" (click)="salvarModelo()">
+            <mat-icon>save</mat-icon>
+            Salvar modelo
+          </button>
+        </div>
+        <div class="editor-drop-zone" (click)="triggerUploadDocxInEditor()" (drop)="onDropEditor($event)" (dragover)="onDragOver($event)">
+          <input id="upload-docx-editor" type="file" #uploadDocxInput accept=".docx" hidden (change)="uploadDocxNoEditor($event)" />
+          <mat-icon>description</mat-icon>
+          Arraste um arquivo .docx aqui ou clique para enviar
+        </div>
+      </aside>
+      <div class="editor-area">
+        <div class="editor-toolbar">
+          <button type="button" mat-mini-fab (click)="aplicarFormato('bold')" title="Negrito">
+            <mat-icon>format_bold</mat-icon>
+          </button>
+          <button type="button" mat-mini-fab (click)="aplicarFormato('italic')" title="Itálico">
+            <mat-icon>format_italic</mat-icon>
+          </button>
+          <button type="button" mat-mini-fab (click)="aplicarFormato('underline')" title="Sublinhado">
+            <mat-icon>format_underlined</mat-icon>
+          </button>
+          <button type="button" mat-mini-fab (click)="aplicarFormato('strikeThrough')" title="Riscado">
+            <mat-icon>format_strikethrough</mat-icon>
+          </button>
+          <select class="toolbar-select" (change)="aplicarFormato('fontName', $any($event.target).value)" title="Fonte">
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Arial">Arial</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Courier New">Courier New</option>
+          </select>
+          <select class="toolbar-select" (change)="aplicarFormato('fontSize', $any($event.target).value)" title="Tamanho">
+            <option value="1">Pequeno</option>
+            <option value="2">Normal</option>
+            <option value="3">Médio</option>
+            <option value="4">Grande</option>
+            <option value="5">Muito grande</option>
+          </select>
+        </div>
+        <div class="editor-sheet-wrap">
+          <div
+            #editorDiv
+            class="editor-content document-editor-inner"
+            contenteditable="true"
+            (input)="onEditorInput()"
+          ></div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <header class="page-header">
+      <h1>Modelos</h1>
+      <button mat-raised-button color="primary" (click)="novoModelo()">
+        <mat-icon>add</mat-icon>
+        Novo modelo
+      </button>
+    </header>
+
+    <p class="intro">Crie modelos no editor ou envie um .docx. Use as variáveis ao gerar o documento.</p>
+
+    <div
+      class="drop-zone"
+      (drop)="onDrop($event)"
+      (dragover)="onDragOver($event)"
+      (click)="triggerFileInput()"
+    >
+      <input id="modelo-file-input" type="file" accept=".docx" hidden (change)="onFileSelected($event)" />
+      @if (uploading()) {
+        <span>Convertendo para o editor…</span>
+      } @else {
+        <mat-icon>upload_file</mat-icon>
+        <span>Arraste um arquivo .docx aqui ou clique para enviar</span>
+      }
+    </div>
+
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+
+    <section class="cards-section">
+      <h2>Seus modelos</h2>
+      @if (loading()) {
+        <p>Carregando…</p>
+      } @else if (modelos().length === 0) {
+        <p class="empty">Nenhum modelo ainda. Crie um no editor ou envie um .docx.</p>
+      } @else {
+        <div class="cards">
+          @for (m of modelos(); track m.id) {
+            <mat-card class="modelo-card">
+              <mat-card-header>
+                <mat-card-title>{{ m.nome }}</mat-card-title>
+                <div class="card-actions">
+                  <button mat-icon-button class="btn-docx" (click)="baixarModelo(m)" title="Baixar .docx">
+                    <mat-icon>description</mat-icon>
+                  </button>
+                  <button mat-icon-button (click)="visualizarModelo(m)" title="Visualizar">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                  @if (m.tipo === 'html' || m.tipo === 'docx') {
+                    <button mat-icon-button class="btn-edit" (click)="editarModelo(m)" title="Editar">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  }
+                  <button mat-icon-button class="btn-delete" (click)="excluir(m)" title="Excluir">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </mat-card-header>
+              <mat-card-content>
+                <small>{{
+                  m.tipo === 'docx' ? 'Enviado .docx' : (m.tipo === 'html' ? 'Editor' : 'Editor Word (legado)')
+                }}</small>
+                @if (m.data_upload) {
+                  <small> · {{ m.data_upload | date:'dd/MM/yyyy HH:mm' }}</small>
+                }
+              </mat-card-content>
+            </mat-card>
+          }
+        </div>
+      }
+    </section>
+  }
+
+  @if (visualizandoModelo()) {
+    <div class="modal-overlay" (click)="fecharVisualizacao()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>Visualização do modelo</h2>
+          <button mat-icon-button (click)="fecharVisualizacao()" aria-label="Fechar">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        <div class="modal-body">
+          @if (carregandoPreview()) {
+            <p>Carregando…</p>
+          } @else {
+            <div class="html-preview" [innerHTML]="htmlVisualizacao() ?? ''"></div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

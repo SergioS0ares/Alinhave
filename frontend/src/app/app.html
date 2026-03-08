@@ -1,0 +1,29 @@
+<div class="layout">
+  <aside class="sidebar">
+    <a routerLink="/" class="sidebar-brand">
+      <span class="brand-icon">A</span>
+      <span>Alinhave</span>
+    </a>
+    <nav class="sidebar-nav">
+      <a routerLink="/pessoas" routerLinkActive="active">
+        <mat-icon>person</mat-icon>
+        Pessoas
+      </a>
+      <a routerLink="/modelos" routerLinkActive="active">
+        <mat-icon>description</mat-icon>
+        Modelos
+      </a>
+      <a routerLink="/gerador" routerLinkActive="active">
+        <mat-icon>build</mat-icon>
+        Gerar Documento
+      </a>
+      <a routerLink="/documentos-gerados" routerLinkActive="active">
+        <mat-icon>folder</mat-icon>
+        Documentos gerados
+      </a>
+    </nav>
+  </aside>
+  <main class="main">
+    <router-outlet />
+  </main>
+</div>

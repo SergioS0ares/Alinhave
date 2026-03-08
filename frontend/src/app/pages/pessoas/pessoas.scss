@@ -1,0 +1,52 @@
+.page-header {
+  h1 {
+    color: var(--alinhave-text);
+  }
+}
+
+.form-section {
+  padding: 1.5rem;
+  border-radius: var(--alinhave-radius);
+  margin-bottom: 1.5rem;
+  background: var(--alinhave-panel);
+  border: 1px solid var(--alinhave-border);
+  box-shadow: var(--alinhave-shadow);
+
+  h2 {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--alinhave-text);
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.table-section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--alinhave-text);
+}
+
+table {
+  width: 100%;
+}

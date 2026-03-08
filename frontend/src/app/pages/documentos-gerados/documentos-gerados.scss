@@ -1,0 +1,130 @@
+.page-header h1 {
+  color: var(--alinhave-text);
+}
+
+.intro {
+  color: var(--alinhave-text-muted);
+}
+
+.empty {
+  color: var(--alinhave-text-muted);
+}
+
+.lista-docs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.doc-card {
+  background: var(--alinhave-card) !important;
+  border: 1px solid var(--alinhave-border);
+  border-radius: var(--alinhave-radius);
+  box-shadow: var(--alinhave-shadow);
+
+  mat-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .badge-tipo {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--alinhave-input-bg);
+    border-radius: 6px;
+    font-weight: 500;
+    color: var(--alinhave-text-muted);
+  }
+
+  .card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+
+    button mat-icon {
+      margin-right: 0.25rem;
+      vertical-align: middle;
+    }
+  }
+
+  mat-card-title {
+    font-size: 1rem;
+    margin: 0;
+    color: var(--alinhave-text);
+  }
+
+  mat-card-content {
+    margin-top: 0.5rem;
+    color: var(--alinhave-text-muted);
+    font-size: 0.875rem;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--alinhave-panel);
+  border-radius: var(--alinhave-radius);
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--alinhave-border);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--alinhave-border);
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--alinhave-text);
+  }
+}
+
+.modal-body {
+  padding: 1rem;
+  overflow: auto;
+  flex: 1;
+  min-height: 200px;
+  border-radius: 0 0 var(--alinhave-radius) var(--alinhave-radius);
+  margin: 0;
+  background: #fff;
+  color: #1a1a1a;
+}
+
+.preview-loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--alinhave-text-muted);
+}
+
+.docx-preview-wrapper {
+  min-height: 300px;
+  padding: 1rem;
+}
+
+.html-preview {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 12pt;
+  line-height: 1.5;
+}

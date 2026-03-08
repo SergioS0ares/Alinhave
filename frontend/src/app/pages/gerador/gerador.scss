@@ -1,0 +1,56 @@
+.page-header h1 {
+  color: var(--alinhave-text);
+}
+
+.intro {
+  color: var(--alinhave-text-muted);
+}
+
+.form-gerador {
+  padding: 2rem;
+  border-radius: var(--alinhave-radius);
+  max-width: 640px;
+  background: var(--alinhave-panel);
+  border: 1px solid var(--alinhave-border);
+  box-shadow: var(--alinhave-shadow);
+}
+
+.dropdowns {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.btn-gerar {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.card-gerado {
+  margin-top: 1.5rem;
+  max-width: 480px;
+  background: var(--alinhave-card) !important;
+  border: 1px solid var(--alinhave-border);
+
+  .data-geracao {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: var(--alinhave-text-muted);
+  }
+
+  mat-card-title {
+    color: var(--alinhave-text);
+  }
+
+  mat-card-actions button mat-icon {
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+}

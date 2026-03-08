@@ -1,0 +1,161 @@
+@use '@angular/material' as mat;
+
+/* ========== Alinhave – Tema escuro moderno (baseado na referência) ========== */
+:root {
+  --alinhave-bg: #1a1a1a;
+  --alinhave-bg-main: #1e1e1e;
+  --alinhave-panel: #2b2b2b;
+  --alinhave-panel-hover: #353535;
+  --alinhave-text: #ffffff;
+  --alinhave-text-muted: #a0a0a0;
+  --alinhave-accent: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  --alinhave-accent-solid: #6366f1;
+  --alinhave-border: #404040;
+  --alinhave-card: #2b2b2b;
+  --alinhave-input-bg: #3d3d3d;
+  --alinhave-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --alinhave-radius: 12px;
+  --alinhave-radius-sm: 8px;
+}
+
+html {
+  color-scheme: dark;
+  @include mat.theme((
+    color: mat.$blue-palette,
+    typography: Roboto,
+    density: 0,
+  ));
+  @include mat.system-classes();
+}
+
+body {
+  margin: 0;
+  background: var(--alinhave-bg);
+  color: var(--alinhave-text);
+  font-family: Roboto, sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+/* Classes globais para páginas (consistência) */
+.page {
+  color: var(--alinhave-text);
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--alinhave-text);
+  }
+}
+
+.intro {
+  margin-bottom: 1rem;
+  color: var(--alinhave-text-muted);
+  font-size: 0.95rem;
+}
+
+.empty {
+  color: var(--alinhave-text-muted);
+}
+
+/* Override Material em tema escuro */
+.mat-mdc-card {
+  background: var(--alinhave-card) !important;
+  color: var(--alinhave-text) !important;
+  border-radius: var(--alinhave-radius) !important;
+  box-shadow: var(--alinhave-shadow) !important;
+  border: 1px solid var(--alinhave-border);
+}
+
+.mat-mdc-form-field {
+  .mdc-text-field {
+    --mdc-outlined-text-field-outline-color: var(--alinhave-border);
+    --mdc-outlined-text-field-hover-outline-color: var(--alinhave-text-muted);
+    --mdc-outlined-text-field-focus-outline-color: var(--alinhave-accent-solid);
+    --mdc-outlined-text-field-input-text-color: var(--alinhave-text);
+    --mdc-outlined-text-field-label-text-color: var(--alinhave-text-muted);
+  }
+}
+
+.mat-mdc-raised-button.mat-primary {
+  background: var(--alinhave-accent) !important;
+  color: white !important;
+}
+
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-stroked-button {
+  border-radius: var(--alinhave-radius-sm) !important;
+}
+
+.mat-mdc-mini-fab {
+  background: var(--alinhave-panel) !important;
+  color: var(--alinhave-text) !important;
+  border: 1px solid var(--alinhave-border);
+  border-radius: var(--alinhave-radius-sm) !important;
+  &:hover {
+    background: var(--alinhave-panel-hover) !important;
+  }
+}
+
+.mat-mdc-icon-button {
+  color: var(--alinhave-text-muted);
+  &:hover {
+    color: var(--alinhave-text);
+  }
+}
+
+/* Botão editar (lápis azul) em todo o app */
+.btn-edit {
+  color: #3b82f6 !important;
+  &:hover {
+    color: #60a5fa !important;
+  }
+}
+
+/* Botão excluir (lixeira vermelha) em todo o app */
+.btn-delete {
+  color: #ef4444 !important;
+  &:hover {
+    color: #f87171 !important;
+  }
+}
+
+.mat-mdc-table {
+  background: var(--alinhave-panel) !important;
+  border-radius: var(--alinhave-radius);
+  overflow: hidden;
+}
+.mat-mdc-header-row {
+  background: var(--alinhave-panel-hover) !important;
+  color: var(--alinhave-text) !important;
+}
+.mat-mdc-row {
+  color: var(--alinhave-text);
+}
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  border-bottom-color: var(--alinhave-border) !important;
+  color: inherit !important;
+}
+
+.mat-mdc-select-value,
+.mat-mdc-input-element {
+  color: var(--alinhave-text) !important;
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: var(--alinhave-panel) !important;
+}

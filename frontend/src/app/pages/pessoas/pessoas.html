@@ -1,0 +1,86 @@
+<div class="page">
+  <header class="page-header">
+    <h1>Pessoas</h1>
+    <button mat-raised-button color="primary" (click)="novaPessoa()">
+      + Nova Pessoa
+    </button>
+  </header>
+
+  @if (showForm()) {
+    <section class="form-section">
+      <h2>{{ editingId() ? 'Editar pessoa' : 'Cadastrar pessoa' }}</h2>
+      <form [formGroup]="form" (ngSubmit)="salvar()">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>CPF</mat-label>
+            <input matInput formControlName="cpf" (input)="formatarCpf()" placeholder="000.000.000-00" />
+            @if (form.get('cpf')?.invalid && form.get('cpf')?.touched) {
+              <mat-error>CPF inválido (use 000.000.000-00)</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="algo@dominio.com" />
+            @if (form.get('email')?.invalid && form.get('email')?.touched && form.get('email')?.value) {
+              <mat-error>E-mail inválido (use algo@algo.algo)</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone" (input)="formatarTelefone()" placeholder="(00) 00000-0000" />
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Endereço</mat-label>
+          <input matInput formControlName="endereco" />
+        </mat-form-field>
+        <div class="form-actions">
+          <button mat-button type="button" (click)="cancelar()">Cancelar</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="saving()">
+            Salvar
+          </button>
+        </div>
+      </form>
+    </section>
+  }
+
+  <section class="table-section">
+    <h2>Cadastrados</h2>
+    @if (loading()) {
+      <p>Carregando…</p>
+    } @else {
+      <table mat-table [dataSource]="dataSource" class="docs-table">
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef>Nome</th>
+          <td mat-cell *matCellDef="let row">{{ row.nome }}</td>
+        </ng-container>
+        <ng-container matColumnDef="cpf">
+          <th mat-header-cell *matHeaderCellDef>CPF</th>
+          <td mat-cell *matCellDef="let row">{{ row.cpf }}</td>
+        </ng-container>
+        <ng-container matColumnDef="acoes">
+          <th mat-header-cell *matHeaderCellDef>Ações</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button class="btn-edit" (click)="editar(row)" title="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button class="btn-delete" (click)="excluir(row)" title="Excluir">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" [attr.colspan]="displayedColumns.length">Nenhuma pessoa cadastrada.</td>
+        </tr>
+      </table>
+    }
+  </section>
+</div>

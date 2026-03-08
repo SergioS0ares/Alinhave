@@ -1,0 +1,357 @@
+/* ========== Modelos – tema escuro alinhado à referência ========== */
+
+.page-header {
+  h1 {
+    color: var(--alinhave-text);
+  }
+}
+
+.intro {
+  color: var(--alinhave-text-muted);
+}
+
+.drop-zone {
+  border: 2px dashed var(--alinhave-border);
+  border-radius: var(--alinhave-radius);
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  background: var(--alinhave-panel);
+  color: var(--alinhave-text-muted);
+  transition: background 0.2s, border-color 0.2s;
+
+  &:hover {
+    background: var(--alinhave-panel-hover);
+    border-color: var(--alinhave-accent-solid);
+    color: var(--alinhave-text);
+  }
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: var(--alinhave-accent-solid);
+  }
+}
+
+.error {
+  color: #f87171;
+  margin: 0 0 1rem;
+}
+
+.cards-section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--alinhave-text);
+}
+
+.empty {
+  color: var(--alinhave-text-muted);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.modelo-card {
+  background: var(--alinhave-card) !important;
+  border: 1px solid var(--alinhave-border);
+  border-radius: var(--alinhave-radius);
+  box-shadow: var(--alinhave-shadow);
+
+  mat-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .card-icon-doc {
+    color: var(--alinhave-accent-solid);
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .card-actions {
+    flex-shrink: 0;
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  mat-card-title {
+    font-size: 1rem;
+    margin: 0;
+    color: var(--alinhave-text);
+    flex: 1;
+    min-width: 0;
+  }
+
+  mat-card-content {
+    margin-top: 0.5rem;
+    color: var(--alinhave-text-muted);
+    font-size: 0.875rem;
+  }
+}
+
+/* ----- Modo editor ----- */
+.editor-layout {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0;
+  min-height: calc(100vh - 3rem);
+  background: var(--alinhave-bg-main);
+}
+
+.sidebar-variaveis {
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--alinhave-panel);
+  padding: 1.5rem;
+  border-radius: var(--alinhave-radius);
+  box-shadow: var(--alinhave-shadow);
+  border: 1px solid var(--alinhave-border);
+  height: fit-content;
+
+  h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--alinhave-text);
+  }
+
+  .sidebar-hint {
+    margin: 0 0 1rem;
+    font-size: 0.875rem;
+    color: var(--alinhave-text-muted);
+  }
+
+  .sidebar-hr {
+    margin: 1.25rem 0;
+    border: none;
+    border-top: 1px solid var(--alinhave-border);
+  }
+
+  .nome-field {
+    width: 100%;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .uploading-label {
+    font-size: 0.875rem;
+    color: var(--alinhave-text-muted);
+  }
+
+  .error-inline {
+    color: #f87171;
+    font-size: 0.875rem;
+    margin: 0.5rem 0;
+  }
+
+  .editor-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    button mat-icon {
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+  }
+}
+
+.variaveis-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .btn-variavel {
+    justify-content: flex-start;
+    text-align: left;
+    background: var(--alinhave-input-bg) !important;
+    color: var(--alinhave-text) !important;
+    border: 1px solid var(--alinhave-border) !important;
+    border-radius: var(--alinhave-radius-sm);
+    &:hover {
+      background: var(--alinhave-panel-hover) !important;
+      border-color: var(--alinhave-accent-solid) !important;
+    }
+  }
+}
+
+.editor-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  background: var(--alinhave-bg);
+  padding: 1.5rem;
+  border-radius: var(--alinhave-radius);
+  position: relative;
+  /* Padrão sutil atrás da folha (opcional) */
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  width: 100%;
+  max-width: 21cm;
+  background: var(--alinhave-panel);
+  border: 1px solid var(--alinhave-border);
+  border-radius: var(--alinhave-radius-sm) var(--alinhave-radius-sm) 0 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+
+  .toolbar-select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--alinhave-border);
+    font-size: 13px;
+    background: var(--alinhave-input-bg);
+    color: var(--alinhave-text);
+    cursor: pointer;
+  }
+}
+
+.editor-sheet-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+}
+
+.document-editor-inner {
+  border: 1px solid var(--alinhave-border);
+  border-radius: 0 0 var(--alinhave-radius-sm) var(--alinhave-radius-sm);
+  width: 21cm;
+  max-height: 29.7cm;
+  min-height: 29.7cm;
+  padding: 2.5cm;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 12pt;
+  outline: none;
+  overflow-y: auto;
+  box-sizing: border-box;
+  color: #1a1a1a;
+
+  &:focus {
+    border-color: var(--alinhave-accent-solid);
+    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.25);
+  }
+}
+
+/* Drop zone dentro do editor (card) */
+.editor-drop-zone {
+  margin-top: 1rem;
+  border: 2px dashed var(--alinhave-border);
+  border-radius: var(--alinhave-radius-sm);
+  padding: 1.25rem;
+  text-align: center;
+  cursor: pointer;
+  background: var(--alinhave-panel);
+  color: var(--alinhave-text-muted);
+  font-size: 0.875rem;
+  transition: background 0.2s, border-color 0.2s;
+
+  &:hover {
+    background: var(--alinhave-panel-hover);
+    border-color: var(--alinhave-accent-solid);
+    color: var(--alinhave-text);
+  }
+
+  mat-icon {
+    display: block;
+    margin: 0 auto 0.5rem;
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: var(--alinhave-accent-solid);
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+}
+
+/* Ícone .docx nos cards (cor neutra) */
+.btn-docx {
+  color: var(--alinhave-text-muted) !important;
+  &:hover {
+    color: var(--alinhave-accent-solid) !important;
+  }
+}
+
+/* Modal de visualização */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--alinhave-panel);
+  border-radius: var(--alinhave-radius);
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--alinhave-border);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--alinhave-border);
+
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--alinhave-text);
+  }
+}
+
+.modal-body {
+  padding: 1rem;
+  overflow: auto;
+  flex: 1;
+  min-height: 200px;
+  background: #fff;
+  color: #1a1a1a;
+}
+
+.html-preview {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 12pt;
+  line-height: 1.5;
+}
